@@ -333,7 +333,10 @@ fn test_linux_breakpad() {
         assert_eq!(line_actual, line_expected);
     };
     outside(0x0); // A very low address.
-    outside(0xfffffff); // A very high address.
+
+    // We don't test a very high address, because the last symbol in the breakpad
+    // file is "PUBLIC 1254 0 _fini", and PUBLICs don't come with a length, so we
+    // can treat _fini as covering the entire rest of the file. That's ok.
 }
 
 #[test]

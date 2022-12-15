@@ -7,8 +7,7 @@ use crate::*;
 
 #[test]
 fn test_linux() {
-    // The native debug info within `example-linux` is as follows. (See
-    // `tests/README.md` for details on how these lines were generated.)
+    // The native debug info within `example-linux` is as follows.
     //
     //   FUNC 0x1130 size=40 func=main
     //   LINE 0x1130 line=24 file=/home/njn/moz/fix-stacks/tests/example.c
@@ -160,7 +159,6 @@ fn test_windows() {
 }
 
 #[test]
-#[ignore] // https://github.com/mozilla/fix-stacks/issues/45
 fn test_mac() {
     // The native debug info within `mac-multi` is as follows. (See
     // `tests/README.md` for details on how these lines were generated.)
@@ -253,15 +251,11 @@ fn test_mac() {
 
     func("lib1_B", 0xe50, true, "mac-lib1.c:19");
     func("lib1_A", 0xe95, true, "mac-lib1.c:15");
-    // This should be `duplicate` in `mac-lib1.c`. It's wrong due to the
-    // archive suffix stripping mentioned above.
-    func("???", 0xeaa, false, "mac-multi + 0xeaa");
+    func("duplicate", 0xeb4, true, "mac-lib1.c:9");
 
     func("lib2_B", 0xedc, true, "mac-lib2.c:20");
     func("lib2_A", 0xf1e, true, "mac-lib2.c:16");
-    // This should be `mac-lib2.c:10`. It's wrong due to the archive suffix
-    // stripping mentioned above.
-    func("duplicate", 0xf38, true, "mac-lib1.c:10");
+    func("duplicate", 0xf38, true, "mac-lib2.c:10");
 }
 
 #[test]

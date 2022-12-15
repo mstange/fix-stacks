@@ -69,7 +69,7 @@ fn test_linux() {
         let line = format!("#00: ???[tests/example-linux +0x{:x}]", addr);
         let line_actual = fixer.fix(line);
         let line_expected = format!("#00: ??? (tests/example-linux + 0x{:x})", addr);
-        assert_eq!(line_expected, line_actual);
+        assert_eq!(line_actual, line_expected);
     };
     outside(0x0); // A very low address.
     outside(0x999); // Well before the start of main.
@@ -151,7 +151,7 @@ fn test_windows() {
         let line = format!("#00: foobar[tests/example-windows.pdb +0x{:x}]", addr);
         let line_actual = fixer.fix(line);
         let line_expected = format!("#00: foobar (tests/example-windows.pdb + 0x{:x})", addr);
-        assert_eq!(line_expected, line_actual);
+        assert_eq!(line_actual, line_expected);
     };
     outside(0x0); // A very low address.
     outside(0x999); // Well before the start of main.
@@ -242,7 +242,7 @@ fn test_mac() {
             "tests/"
         };
         let line_expected = format!("#00: {} ({}{})", name, path, locn);
-        assert_eq!(line_expected, line_actual);
+        assert_eq!(line_actual, line_expected);
     };
 
     func("main", 0xd70, true, "mac-normal.c:17");
@@ -331,7 +331,7 @@ fn test_linux_breakpad() {
         let line = format!("#00: ???[tests/example-linux +0x{:x}]", addr);
         let line_actual = fixer.fix(line);
         let line_expected = format!("#00: ??? [tests/example-linux + 0x{:x}]", addr);
-        assert_eq!(line_expected, line_actual);
+        assert_eq!(line_actual, line_expected);
     };
     outside(0x0); // A very low address.
     outside(0xfffffff); // A very high address.
@@ -398,7 +398,7 @@ fn test_linux_breakpad_fallback() {
         let line = format!("#00: ???[tests/example-linux-fallback +0x{:x}]", addr);
         let line_actual = fixer.fix(line);
         let line_expected = format!("#00: ??? [tests/example-linux-fallback + 0x{:x}]", addr);
-        assert_eq!(line_expected, line_actual);
+        assert_eq!(line_actual, line_expected);
     };
     outside(0x0); // A very low address.
     outside(0xfffffff); // A very high address.
@@ -463,7 +463,7 @@ fn test_windows_breakpad() {
         let line = format!("#00: ???[tests/example-windows.exe +0x{:x}]", addr);
         let line_actual = fixer.fix(line);
         let line_expected = format!("#00: ??? [tests/example-windows.exe + 0x{:x}]", addr);
-        assert_eq!(line_expected, line_actual);
+        assert_eq!(line_actual, line_expected);
     };
     outside(0x0); // A very low address.
     outside(0xfffffff); // A very high address.
@@ -476,7 +476,7 @@ fn test_regex() {
     // Test various different unchanged line forms, that don't match the regex.
     let mut unchanged = |line: &str| {
         let line2 = fixer.fix(line.to_string());
-        assert_eq!(line, line2);
+        assert_eq!(line2, line);
     };
     unchanged("");
     unchanged("1234 ABCD");
@@ -488,7 +488,7 @@ fn test_regex() {
     // Test various different changed line forms that do match the regex.
     let mut changed = |line1: &str, line2_expected| {
         let line2_actual = fixer.fix(line1.to_string());
-        assert_eq!(line2_expected, line2_actual);
+        assert_eq!(line2_actual, line2_expected);
     };
     changed(
         "#01: foobar[tests/example-linux +0x1130]",
@@ -512,7 +512,7 @@ fn test_files() {
     // stderr for each one, but we don't test for that.
     let mut file_error = |line1: &str, line2_expected| {
         let line2_actual = fixer.fix(line1.to_string());
-        assert_eq!(line2_expected, line2_actual);
+        assert_eq!(line2_actual, line2_expected);
     };
     // No such file.
     file_error(

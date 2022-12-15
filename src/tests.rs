@@ -72,9 +72,9 @@ fn test_linux() {
         assert_eq!(line_actual, line_expected);
     };
     outside(0x0); // A very low address.
-    outside(0x999); // Well before the start of main.
-    outside(0x112f); // One byte before the start of `main`.
-    outside(0x1158); // One byte past the end of `main`.
+    outside(0x999); // One byte before the start of _init.
+    outside(0x112f); // In the alignment gap between `frame_dummy` and `main`.
+    outside(0x1158); // One byte past the end of `main`, eight bytes before `f`.
     outside(0xfffffff); // A very high address.
 }
 
